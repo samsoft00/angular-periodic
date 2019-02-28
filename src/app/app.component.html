@@ -1,0 +1,55 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container-fluid">
+  <div style="text-align:center">
+    <h1 class="text-primary">
+      {{title}}
+    </h1>
+  </div>
+  <div>
+    <form>
+      <input style="height: 50px; width:100%;" type="text" placeholder="filter by title" />
+    </form>
+    <div style="position:relative;" *ngIf="isLoading">
+      <ngb-progressbar type="primary" [animated]="true" [value]="progressCount" height="5px"></ngb-progressbar>
+    </div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Author</th>
+        <th scope="col">No of Comments</th>
+        <th scope="col">Created</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let post of posts ; let i = index;">
+          <th (click)="open(content, post)" scope="row">{{i+1}}</th>
+          <td (click)="open(content, post)">{{post.title}}</td>
+          <td (click)="open(content, post)">{{post.author}}</td>
+          <td (click)="open(content, post)">{{post.num_comments}}</td>
+          <td (click)="open(content, post)">{{post.created_at_i | date}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Details</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tbody>
+            {{selectedPost | json}}
+        </table>
+      </div>
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>-->
+      <!--</div>-->
+    </ng-template>
+  </div>
+</div>
+
